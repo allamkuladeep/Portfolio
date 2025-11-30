@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuladeep Allam | Full Stack Engineer & Azure Architect</title>
+    <meta name="description" content="Kuladeep Allam – Full Stack .NET Engineer, Azure Cloud Specialist with 7+ years building scalable microservices, event-driven systems, and cloud-native solutions.">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --bg: #ffffff;
+            --text: #212529;
+            --border: #dee2e6;
+            --card-bg: #ffffff;
+            --card-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --nav-bg: rgba(255,255,255,0.95);
+        }
+
+        [data-theme="dark"] {
+            --primary: #0d6efd;
+            --dark: #f8f9fa;
+            --light: #212529;
+            --gray: #adb5bd;
+            --bg: #121212;
+            --text: #e9ecef;
+            --border: #343a40;
+            --card-bg: #1e1e1e;
+            --card-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            --nav-bg: rgba(18,18,18,0.95);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container { max-width:1200px; margin:auto; padding:0 1rem; }
+
+        /* Header */
+        header {
+            position:fixed; top:0; left:0; width:100%;
+            background:var(--nav-bg); backdrop-filter:blur(10px);
+            z-index:1000; box-shadow:0 2px 10px rgba(0,0,0,.1);
+            transition:background .3s;
+        }
+        nav { display:flex; justify-content:space-between; align-items:center; padding:1rem 0; }
+        .logo { font-weight:700; font-size:1.5rem; color:var(--primary); text-decoration:none; }
+        .nav-links { display:flex; gap:2rem; }
+        .nav-links a { text-decoration:none; color:var(--text); font-weight:500; position:relative; transition:color .3s; }
+        .nav-links a:hover { color:var(--primary); }
+        .nav-links a::after { content:''; position:absolute; bottom:-5px; left:0; width:0; height:2px; background:var(--primary); transition:width .3s; }
+        .nav-links a:hover::after { width:100%; }
+
+        /* Dark-Mode Toggle */
+        .theme-toggle {
+            background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--text);
+            transition:transform .3s;
+        }
+        .theme-toggle:hover { transform:scale(1.15); }
+
+        /* Hero */
+        .hero { padding:8rem 0 4rem; text-align:center; background:linear-gradient(135deg, #f8f9ff 0%, #e9f0ff 100%); }
+        [data-theme="dark"] .hero { background:linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+        .hero h1 { font-size:3.5rem; margin-bottom:1rem;
+            background:linear-gradient(90deg,var(--primary),#6610f2);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+        }
+        .hero .subtitle { font-size:1.3rem; color:var(--gray); max-width:700px; margin:auto; }
+        .cta-buttons { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2rem; }
+        .btn { padding:.75rem 1.5rem; border-radius:50px; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:.5rem; transition:all .3s; }
+        .btn-primary { background:var(--primary); color:#fff; }
+        .btn-primary:hover { background:#0b5ed7; transform:translateY(-2px); box-shadow:0 10px 20px rgba(13,110,253,.3); }
+        .btn-outline { border:2px solid var(--primary); color:var(--primary); }
+        .btn-outline:hover { background:var(--primary); color:#fff; }
+
+        /* Sections */
+        section { padding:5rem 0; }
+        .section-title { text-align:center; font-size:2.5rem; margin-bottom:3rem; position:relative; }
+        .section-title::after { content:''; position:absolute; bottom:-15px; left:50%; transform:translateX(-50%); width:60px; height:4px; background:var(--primary); border-radius:2px; }
+
+        /* About */
+        .about-content { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; }
+        .about-text { font-size:1.1rem; color:var(--gray); }
+        .about-text h3 { margin-bottom:1rem; color:var(--text); font-size:1.5rem; }
+        .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; margin-top:2rem; }
+        .skill-card { background:var(--card-bg); padding:1.5rem; border-radius:12px; box-shadow:var(--card-shadow); border:1px solid var(--border); }
+        .skill-card h4 { margin-bottom:1rem; color:var(--primary); display:flex; align-items:center; gap:.5rem; }
+        .skill-card li { padding:.35rem 0; color:var(--gray); position:relative; padding-left:1.5rem; }
+        .skill-card li::before { content:'▹'; color:var(--primary); position:absolute; left:0; }
+
+        /* Timeline */
+        .timeline { position:relative; max-width:900px; margin:auto; }
+        .timeline::before { content:''; position:absolute; left:50%; transform:translateX(-50%); width:4px; height:100%; background:var(--border); border-radius:2px; }
+        .timeline-item { position:relative; margin:3rem 0; width:50%; }
+        .timeline-item:nth-child(odd) { left:0; padding-right:3rem; text-align:right; }
+        .timeline-item:nth-child(even) { left:50%; padding-left:3rem; }
+        .timeline-content { background:var(--card-bg); padding:1.5rem; border-radius:12px; box-shadow:var(--card-shadow); border:1px solid var(--border); position:relative; }
+        .timeline-content::before { content:''; position:absolute; top:20px; width:16px; height:16px; background:var(--primary); border:4px solid var(--card-bg); border-radius:50%; box-shadow:0 0 0 4px var(--border); }
+        .timeline-item:nth-child(odd) .timeline-content::before { right:-48px; }
+        .timeline-item:nth-child(even) .timeline-content::before { left:-48px; }
+        .timeline-date { font-weight:600; color:var(--primary); font-size:.9rem; margin-bottom:.5rem; }
+        .timeline-title { font-weight:600; margin-bottom:.5rem; }
+        .timeline-company { color:var(--gray); font-size:.95rem; margin-bottom:1rem; }
+        .timeline-content li { margin-bottom:.5rem; padding-left:1.5rem; position:relative; font-size:.95rem; color:var(--gray); }
+        .timeline-content li::before { content:'→'; color:var(--primary); position:absolute; left:0; font-weight:bold; }
+
+        /* Projects */
+        .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; margin-top:2rem; }
+        .project-card { background:var(--card-bg); border-radius:12px; overflow:hidden; box-shadow:var(--card-shadow); border:1px solid var(--border); transition:transform .3s; }
+        .project-card:hover { transform:translateY(-8px); }
+        .project-thumb { height:180px; background:#ddd; display:flex; align-items:center; justify-content:center; font-size:3rem; color:#aaa; }
+        .project-body { padding:1.25rem; }
+        .project-title { font-weight:600; margin-bottom:.5rem; color:var(--primary); }
+        .project-desc { font-size:.95rem; color:var(--gray); margin-bottom:1rem; }
+        .project-links a { margin-right:.75rem; color:var(--primary); font-size:.9rem; }
+        .project-links a:hover { text-decoration:underline; }
+        .loading { text-align:center; color:var(--gray); padding:2rem; }
+
+        /* Certifications */
+        .certs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; margin-top:2rem; }
+        .cert-card { background:var(--card-bg); padding:1.5rem; border-radius:12px; box-shadow:var(--card-shadow); border:1px solid var(--border); text-align:center; }
+        .cert-card i { font-size:2.5rem; color:var(--primary); margin-bottom:1rem; }
+        .cert-card h4 { margin-bottom:.5rem; }
+        .cert-card p { color:var(--gray); font-size:.9rem; }
+
+        /* Contact */
+        .contact { background:var(--dark); color:#fff; text-align:center; }
+        .contact .section-title { color:#fff; }
+        .contact .section-title::after { background:#fff; }
+        .contact-info { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin:2rem 0; }
+        .contact-item { display:flex; align-items:center; gap:.75rem; font-size:1.1rem; }
+        .contact-item i { color:var(--primary); font-size:1.3rem; }
+        .social-links { display:flex; justify-content:center; gap:1rem; margin-top:2rem; }
+        .social-links a { width:45px; height:45px; background:rgba(255,255,255,.1); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; transition:all .3s; }
+        .social-links a:hover { background:var(--primary); transform:translateY(-3px); }
+
+        /* Footer */
+        footer { background:#1a1a1a; color:#aaa; text-align:center; padding:2rem 0; font-size:.9rem; }
+
+        /* Responsive */
+        @media (max-width:992px){
+            .about-content{grid-template-columns:1fr;}
+            .timeline::before{left:30px;}
+            .timeline-item{width:100%;padding-left:70px!important;padding-right:0!important;left:0!important;}
+            .timeline-item:nth-child(odd){text-align:left;}
+            .timeline-content::before{left:-38px!important;}
+        }
+        @media (max-width:768px){
+            .hero h1{font-size:2.5rem;}
+            .nav-links{display:none;}
+            .section-title{font-size:2rem;}
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Kuladeep Allam</a>
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#certifications">Certs</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Kuladeep Allam</h1>
+            <p class="subtitle">Full Stack Engineer | .NET Architect | Azure Cloud Specialist</p>
+            <p>Architecting scalable, cloud-native solutions with .NET 8, Azure PaaS, and event-driven microservices. 7+ years leading enterprise-grade systems that process millions of transactions daily.</p>
+
+            <div class="cta-buttons">
+                <a href="Kuladeep_Allam_Resume.pdf" class="btn btn-primary" download>
+                    <i class="fas fa-download"></i> Download Resume
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="fas fa-envelope"></i> Get in Touch
+                </a>
+                <a href="https://www.linkedin.com/in/kuladeep-allam" target="_blank" class="btn btn-outline">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Professional Summary</h3>
+                    <p>Results-oriented Software Engineer with 7+ years of experience architecting and building enterprise-grade solutions using C#, .NET 8/Core, and Azure PaaS. Proven track record of leading the design of service-oriented and event-driven architectures for high-scale applications.</p>
+                    <p>Expert in cloud-native development leveraging Azure Functions, Service Bus, and Cosmos DB. Deeply committed to software engineering best practices, including SOLID principles, Domain-Driven Design (DDD), and Clean Architecture.</p>
+                    <p>Experienced in coaching junior developers and leading technical deep dives to foster a culture of continuous improvement.</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h4><i class="fas fa-code"></i> Core Technologies</h4>
+                        <ul>
+                            <li>C# & .NET 8/Core</li>
+                            <li>ASP.NET Web API</li>
+                            <li>Angular & TypeScript</li>
+                            <li>Next.js</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card">
+                        <h4><i class="fas fa-cloud"></i> Azure Expertise</h4>
+                        <ul>
+                            <li>Azure Functions</li>
+                            <li>App Services & Service Bus</li>
+                            <li>Event Grid & API Management</li>
+                            <li>Cosmos DB & Key Vault</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card">
+                        <h4><i class="fas fa-project-diagram"></i> Architecture</h4>
+                        <ul>
+                            <li>Microservices & Event-Driven</li>
+                            <li>Domain-Driven Design (DDD)</li>
+                            <li>Clean Architecture & CQRS</li>
+                            <li>SOA & SOLID Principles</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card">
+                        <h4><i class="fas fa-tools"></i> DevOps</h4>
+                        <ul>
+                            <li>Azure DevOps & GitHub Actions</li>
+                            <li>Docker & Kubernetes (AKS)</li>
+                            <li>CI/CD Pipelines</li>
+                            <li>Application Insights</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" style="background:#f8f9ff;">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                <!-- Charter -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">May 2023 – Present</div>
+                        <div class="timeline-title">SDE IV (Full Stack Engineer)</div>
+                        <div class="timeline-company">Charter Communications | St. Louis, Missouri</div>
+                        <ul>
+                            <li>Architected and built .NET-based services: Led development of the Credit Calculator with scalable APIs using C# and .NET Core/8</li>
+                            <li>Engineered secure access layer using Azure App Services and Key Vault with SSO for enterprise security standards</li>
+                            <li>Deployed microservices on Kubernetes (AKS) handling 100k+ daily transactions with high availability</li>
+                            <li>Designed CI/CD pipelines using Git/Azure DevOps, reducing time-to-market significantly</li>
+                            <li>Optimized SQL queries and backend logic, reducing login latency by 40%</li>
+                            <li>Coached junior developers through code reviews and architectural deep dives enforcing SOLID and clean code</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Accenture -->
+                <div class="timeline-item">
+                    <div.questions class="timeline-content">
+                        <div class="timeline-date">June 2021 – March 2023</div>
+                        <div class="timeline-title">Application Developer</div>
+                        <div class="timeline-company">Accenture | Remote/Hybrid</div>
+                        <ul>
+                            <li>Designed cloud-native, event-driven microservices for next-gen IoT platform integrating Vodafone LTE and Toshiba 4G hubs</li>
+                            <li>Leveraged Azure Functions and Event Grid/Service Bus for high-throughput message processing with sub-second latency</li>
+                            <li>Integrated Azure Application Insights and Monitor, reducing incident response times by 30%</li>
+                            <li>Optimized network performance for 10+ million devices using Azure Cloud Services</li>
+                            <li>Collaborated with architects and PMs to deliver scalable solution advancing UK’s net-zero goals</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 75F Engineer -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">June 2018 – June 2021</div574>
+                        <div class="timeline-title">Software Engineer</div>
+                        <div class="timeline-company">75F APAC | Bengaluru, India</div>
+                        <ul>
+                            <li>Designed "Facilisight Manager" web portal using SOA to monitor energy and air quality across multiple sites</li>
+                            <li>Utilized Azure Cosmos DB and InfluxDB for large-scale time-series data management</li>
+                            <li>Built responsive applications with Angular frontend and .NET backend services</li>
+                            <li>Developed occupancy and vacation temperature scheduling feature, automating preconditioning to optimize energy use by ~35%</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 75F Intern -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Jan 2018 – March 2018</div>
+                        <div class="timeline-title">Software Engineer Intern</div>
+                        <div class="timeline-company">75F APAC | Bengaluru, India</div>
+                        <ul>
+                            <li>Enhanced internal support portals using Angular and .NET, improving workflow efficiency</li>
+                            <li>Assisted in database integration with Azure Cosmos DB to enable data-driven insights</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects (GitHub integration) -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div id="projects-container" class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Loading projects from GitHub…
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certs-grid">
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>Microsoft Certified: Azure Fundamentals</h4>
+                    <p>Validates foundational knowledge of cloud concepts and Azure services</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>Scrum Fundamentals Certified (SFC)</h4>
+                    <p>Certifies understanding of Scrum framework and agile principles</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>Accenture: Certified Automation Engineer (Specialist)</h4>
+                    <p>Recognizes expertise in automation engineering and delivery</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p style="max-width:700px;margin:auto 2rem;color:#ddd;">I'm always open to discussing new opportunities, technical challenges, or collaboration on innovative projects.</p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>allamkuladeep@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>linkedin.com/in/kuladeep-allam</span>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/kuladeep-allam" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/kuladeepallam" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:allamkuladeep@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Kuladeep Allam. All rights reserved. | Built with ❤️ using HTML, CSS & vanilla JS</p>
+        </div>
+    </footer>
+
+    <script>
+        /* ==== Dark / Light Mode Toggle ==== */
+        const toggleBtn = document.querySelector('.theme-toggle');
+        const body = document.body;
+        const icon = toggleBtn.querySelector('i');
+
+        // Load saved preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', savedTheme);
+        icon.classList.toggle('fa-sun', savedTheme === 'dark');
+        icon.classList.toggle('fa-moon', savedTheme === 'light');
+
+        toggleBtn.addEventListener('click', () => {
+            const current = body.getAttribute('data-theme');
+            const newTheme = current === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            icon.classList.toggle('fa-sun', newTheme === 'dark');
+            icon.classList.toggle('fa-moon', newTheme === 'light');
+        });
+
+        /* ==== Smooth Scroll ==== */
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        /* ==== GitHub Projects ==== */
+        const GITHUB_USERNAME = 'kuladeepallam'; // <-- CHANGE TO YOUR GITHUB USERNAME
+        const projectsContainer = document.getElementById('projects-container');
+
+        async function loadProjects() {
+            try {
+                const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`);
+                const repos = await res.json();
+
+                if (!res.ok || repos.message) throw new Error(repos.message || 'Failed to fetch');
+
+                projectsContainer.innerHTML = '<div class="projects-grid"></div>';
+                const grid = projectsContainer.querySelector('.projects-grid');
+
+                repos.forEach(repo => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+
+                    const thumb = repo.homepage || repo.html_url.includes('github.io') ? 
+                        `<img src="${repo.owner.avatar_url}" style="width:100%;height:100%;object-fit:cover;" alt="${repo.name}">` :
+                        `<div class="project-thumb"><i class="fab fa-github"></i></div>`;
+
+                    card.innerHTML = `
+                        ${thumb}
+                        <div class="project-body">
+                            <div class="project-title">${repo.name}</div>
+                            <div class="project-desc">${repo.description || 'No description'}</div>
+                            <div class="project-links">
+                                ${repo.homepage ? `<a href="${repo.homepage}" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>` : ''}
+                                <a href="${repo.html_url}" target="_blank"><i class="fab fa-github"></i> Code</a>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (err) {
+                projectsContainer.innerHTML = `<p style="color:red;">⚠️ ${err.message}</p>`;
+                console.error(err);
+            }
+        }
+
+        loadProjects();
+    </script>
+</body>
+</html>
